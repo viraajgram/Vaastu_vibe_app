@@ -1,0 +1,23 @@
+name: Daily Market Data Refresh
+on:
+  schedule:
+    - cron: '0 0 * * *' # Executes daily at 00:00 UTC
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Refresh Market Data
+        run: |
+          # Simulation of daily price & discount crawler
+          echo "{\"last_sync\": \"$(date)\", \"deals\": \"Active\"}" > data.json
+      - name: Commit & Push Changes
+        run: |
+          git config --global user.name "VV-Automation-Bot"
+          git config --global user.email "bot@vaastuvibe.ai"
+          git add data.json
+          git commit -m "chore: daily market data sync" || exit 0
+          git push
