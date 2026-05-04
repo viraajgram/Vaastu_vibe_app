@@ -1,0 +1,24 @@
+<section class="container">
+    <div class="card" style="background: var(--saffron-pale); border-color: var(--saffron);">
+        <h2 style="color: var(--saffron-deep);">🔥 Deal of the Day</h2>
+        <p id="daily-deal-text">Loading daily discounts...</p>
+    </div>
+
+    <div class="grid" id="comparison-grid">
+        </div>
+</section>
+
+<script>
+    async function activateFeatures() {
+        // Fetch the daily data from your data.json
+        const res = await fetch('./data.json');
+        const data = await res.json();
+        
+        document.getElementById('daily-deal-text').innerHTML = 
+            `Today's Top Pick: <strong>${data.daily_deal.item}</strong> at 
+            <strong>${data.daily_deal.discount} OFF</strong> from ${data.daily_deal.best_vendor}.`;
+            
+        console.log("Chatbot and daily refresh initialized for Pune market context.");
+    }
+    activateFeatures();
+</script>
